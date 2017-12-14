@@ -1,2 +1,2 @@
 # Tumblr Direct
-A reddit bot for NSFW tumblr posts
+A Reddit bot for NSFW Tumblr posts
