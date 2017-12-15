@@ -1,5 +1,5 @@
 # Tumblr Direct
-A Reddit bot written in Python which takes NSFW Tumblr posts and posts the direct links in the comments. It works for IFrames, videos, photosets and individual photos. 
+A Reddit bot written in Python which takes NSFW Tumblr posts and posts the direct links in the comments.
 ## Requirements
 * Python 3
 * PRAW
