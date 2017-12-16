@@ -102,4 +102,4 @@ ENV/
 
 # Custom
 configs/
-.idea/
+.idea/*
