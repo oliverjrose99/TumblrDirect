@@ -111,7 +111,12 @@ class TumblrDirect:
 
 
 if __name__ == "__main__":
-    bot = TumblrDirect("configs/config.json")
+
+    # load set config or use default
+    if len(sys.argv) == 2:
+        bot = TumblrDirect(sys.argv[1])
+    else:
+        bot = TumblrDirect("configs/config.json")
 
     # bad practice but helps in development
     try:
