@@ -15,10 +15,7 @@ Server costs aren't a lot, ~£10 per month, but i'm currently unemployed so any 
 
 [Patreon](https://www.patreon.com/oliverjrose99)
 
-BTC: 16ZrYUsyEuxToErXoddD5Wbr2b87DWXkQq
-
-BCH: 1Kw8jGZQiNwCCK6znYVpokvYNXZFfuXJqS
-
-ETH: 0xf4738d46C3521263BAa7BEFA46c945633d99Ad53
-
-LTC: LLsqeYaiKdcEMYUVEoxoyXZy3hC3kexxzK
+BTC: 16ZrYUsyEuxToErXoddD5Wbr2b87DWXkQq  
+BCH: 1Kw8jGZQiNwCCK6znYVpokvYNXZFfuXJqS  
+ETH: 0xf4738d46C3521263BAa7BEFA46c945633d99Ad53  
+LTC: LLsqeYaiKdcEMYUVEoxoyXZy3hC3kexxzK  
