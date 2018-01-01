@@ -1,4 +1,4 @@
-import tomd
+import html2text
 
 
 def caption_finder(page, xml):
@@ -10,4 +10,4 @@ def caption_finder(page, xml):
     else:
         return None
 
-    return tomd.convert(caption)
+    return html2text.html2text(caption)
