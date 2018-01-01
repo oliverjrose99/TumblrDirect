@@ -15,7 +15,7 @@ This bot works by looking at the domain stream produced by Reddit, e.g. reddit.c
 
 If you would like to be added to or removed from the blacklist, please message me on Github or Reddit at [/u/oliverjrose99](https://www.reddit.com/user/oliverjrose99)
 
-##TODO
+## TODO
 Short Term
 * Better finding of iframes
 * Wrap in proper daemon
