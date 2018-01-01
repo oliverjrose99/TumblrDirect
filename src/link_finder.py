@@ -17,7 +17,7 @@ class LinkFinder:
         self.error = False
         self.type = -1
 
-        if "&lt;iframe src=\"" in self.page:
+        if "&lt;iframe" in self.page:
             self.type = self.IFRAME
             self.get_iframe()
 
