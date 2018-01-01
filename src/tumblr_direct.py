@@ -84,7 +84,8 @@ class TumblrDirect:
 
                 # get links and caption
                 post_links = LinkFinder(post.url)
-                caption = caption_finder(post_links.page, post_links.page_xml)
+                # caption = caption_finder(post_links.page, post_links.page_xml)
+                caption = None  # Captions disabled until fully supported HTML to Markdown converter found
 
                 if post_links.error:
                     logging.log(logging.ERROR, "Error finding links, {}".format(post.permalink))
