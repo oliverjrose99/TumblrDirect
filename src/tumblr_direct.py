@@ -123,8 +123,7 @@ if __name__ == "__main__":
     try:
         bot.start()
     except Exception as e:
-        print(e)
-        with open("configs/crash.log") as f:
+        with open("configs/crash.log", "a") as f:
             f.write(str(e))
 
     bot.stop()
