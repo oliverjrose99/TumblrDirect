@@ -5,7 +5,7 @@ A Reddit bot written in Python which takes NSFW Tumblr posts and posts the direc
 * Python 3
 * PRAW
 * BeautifulSoup4
-* html2text
+* Html2text
 
 ## Why
 Because people/bots post links on Reddit to Tumblr posts which, when opened, will either redirect to ads or the post will have ads around it. As soon as you click or even look at it funny, your PC/mobile will have aids, there will be horny single moms in your area and The Real Fuckbook will be back. Many of the subreddits this bot works on are either abandoned by the mods or the mods don't care.
@@ -17,7 +17,6 @@ If you would like to be added to or removed from the blacklist, please message m
 
 ## TODO
 Short Term
-* Better finding of iframes
 * Wrap in proper daemon
 
 Long Term
