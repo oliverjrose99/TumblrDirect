@@ -7,7 +7,6 @@ import json
 import praw
 import sys
 
-from caption_finder import caption_finder
 from link_finder import LinkFinder
 from post_formatter import post_formatter
 
@@ -84,25 +83,21 @@ class TumblrDirect:
 
                 # get links and caption
                 post_links = LinkFinder(post.url)
-                caption = caption_finder(post_links.page, post_links.page_xml)
 
                 if post_links.error:
                     logging.log(logging.ERROR, "Error finding links, {}".format(post.permalink))
                     continue
 
                 # make post text
-                post_body = post_formatter(post_links, caption, post.permalink)
+                post_body = post_formatter(post_links, post.permalink)
 
                 try:
-                    post.reply(post_body)
+                    # post.reply(post_body)
+                    print(post_links.type)
+                    print(post_links.links)
+
                 except Exception as e:
                     logging.log(logging.ERROR, "Error posting reply, {}".format(str(e)))
-
-                for i in range(60):
-                    time.sleep(1)
-
-                    if not self.running:
-                        break
 
     def stop(self):
         # write done arr to file
@@ -119,9 +114,11 @@ if __name__ == "__main__":
     else:
         bot = TumblrDirect("configs/config.json")
 
+        bot.start()
+
     # bad practice but helps in development
     try:
-        bot.start()
+        print("")
     except Exception as e:
         with open("configs/crash.log", "a") as f:
             f.write(str(e))

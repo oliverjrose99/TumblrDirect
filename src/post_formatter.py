@@ -1,4 +1,4 @@
-def post_formatter(link_finder, caption, permalink):
+def post_formatter(link_finder, permalink):
     body = ""
 
     # if photoset
@@ -17,8 +17,8 @@ def post_formatter(link_finder, caption, permalink):
             elif link[0] == 0:  # single photo
                 body += "[Direct link, Image]({})\n\n".format(link[1])
 
-    if caption is not None:
-        body += caption + "\n\n"
+    if link_finder.caption is not None:
+        body += link_finder.caption + "\n\n"
 
     body += "---\n\n"  # horizontal line
     body += "^(Bot by /u/oliverjrose99) ^| "  # bot ID
