@@ -85,14 +85,17 @@ class LinkFinder:
     @staticmethod
     def get_page(url):
 
-        # make url
-        url = url.split("#")[0]
-        url = url.split("?")[0]
-
         # remove embed
         if "/embed" in url:
             url = url[:-6]
 
+        # remove safe-mode
+        if "safe-mode?url=" in url:
+            url = url.split("safe-mode?url=")[1]
+
+        # make url
+        url = url.split("#")[0]
+        url = url.split("?")[0]
         url += "/xml"
 
         # get page
