@@ -89,7 +89,7 @@ class TumblrDirect:
                     continue
 
                 # make post text
-                post_body = post_formatter(post_links, post.permalink)
+                post_body = post_formatter(post_links, post)
 
                 try:
                     post.reply(post_body)
@@ -105,11 +105,7 @@ class TumblrDirect:
 
 if __name__ == "__main__":
 
-    # load set config or use default
-    if len(sys.argv) == 2:
-        bot = TumblrDirect(sys.argv[1])
-    else:
-        bot = TumblrDirect("configs/config.json")
+    bot = TumblrDirect("configs/config.json")
 
     # bad practice but helps in development
     try:
