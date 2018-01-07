@@ -16,9 +16,10 @@ def post_formatter(link_finder, post):
         elif link[0] == link_finder.IFRAME:
             body += "[Embedded link, Semi-direct]({})\n\n".format(link[1])
 
-    # don't post caption if its the same as the post title
-    if link_finder.caption is not None and link_finder.caption != post.title:
-        body += link_finder.caption + "\n\n"
+    # don't post caption if its the same as the post title, add \n\n in comparison
+    if link_finder.caption is not None:
+        if link_finder.caption != (post.title + "\n\n"):
+            body += link_finder.caption + "\n\n"
 
     body += "---\n\n"  # horizontal line
     body += "^(Bot by /u/oliverjrose99) ^| "  # bot ID
