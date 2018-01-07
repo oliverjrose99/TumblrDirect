@@ -1,21 +1,20 @@
 def post_formatter(link_finder, permalink):
+
     body = ""
 
-    # if photoset
-    if link_finder.type == 1:
-        for idx, link in enumerate(link_finder.links):
-            body += "[Direct link, Image {}]({})\n\n".format(idx + 1, link)
+    for link in link_finder.links:
+        if link[0] == link_finder.PHOTO:
+            body += "[Direct link, Photo]({})\n\n".format(link[1])
 
-    else:  # all other post types
-        for link in link_finder.links:
-            if link[0] == 3:  # iframe
-                body += "[Embedded link, Semi-direct]({})\n\n".format(link[1])
+        elif link[0] == link_finder.PHOTOSET:
+            for idx, photo in enumerate(link[1]):
+                body += "[Direct link, Photo {}]({})\n\n".format(idx + 1, photo)
 
-            elif link[0] == 2:  # video
-                body += "[Direct link, Video]({})\n\n".format(link[1])
+        elif link[0] == link_finder.VIDEO:
+            body += "[Direct link, Video]({})\n\n".format(link[1])
 
-            elif link[0] == 0:  # single photo
-                body += "[Direct link, Image]({})\n\n".format(link[1])
+        elif link[0] == link_finder.IFRAME:
+            body += "[Embedded link, Semi-direct]({})\n\n".format(link[1])
 
     if link_finder.caption is not None:
         body += link_finder.caption + "\n\n"

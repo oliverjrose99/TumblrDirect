@@ -92,10 +92,7 @@ class TumblrDirect:
                 post_body = post_formatter(post_links, post.permalink)
 
                 try:
-                    # post.reply(post_body)
-                    print(post_links.type)
-                    print(post_links.links)
-
+                    post.reply(post_body)
                 except Exception as e:
                     logging.log(logging.ERROR, "Error posting reply, {}".format(str(e)))
 

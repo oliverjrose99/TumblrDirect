@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 
 class LinkFinder:
-    # set "constants"
+
     PHOTO = 0
     PHOTOSET = 1
     VIDEO = 2
@@ -16,33 +16,23 @@ class LinkFinder:
         # get and setup vars
         self.page = self.get_page(url)
         self.soup = BeautifulSoup(html.unescape(self.page), "html.parser")
-        self.type = self.soup.find("post")["type"]
 
-        self.url = url
         self.links = []
         self.error = False
         self.caption = None
 
-        # run method for appropriate type
-        if self.type == "regular":
-            self.get_iframe()
-            self.type = self.IFRAME
+        # get photoset or photo
+        if self.soup.find("photoset"):
+            self.get_photoset()
+        else:
+            self.get_photo()
 
-        elif self.type == "video":
-            self.get_video()
-            self.type = self.VIDEO
-
-        elif self.type == "photo":
-            if self.soup.find("photoset"):
-                self.get_photoset()
-                self.type = self.PHOTOSET
-
-            else:
-                self.get_photo()
-                self.type = self.PHOTO
-
+        # try and get: iframes, video, caption
+        self.get_iframe()
+        self.get_video()
         self.get_caption()
 
+        # if no links found, set error
         if not self.links:
             self.error = True
 
@@ -55,7 +45,7 @@ class LinkFinder:
         else:
             return
 
-        self.caption = html2text.html2text(caption)
+        self.caption = html2text.html2text(str(caption))
 
     def get_iframe(self):
 
@@ -65,21 +55,29 @@ class LinkFinder:
 
     def get_video(self):
 
-        # find video player, return src if valid
+        # check post has video
+        if not self.soup.find("video-player"):
+            return
+
+        # find video player and add source to arr
         player = self.soup.find("video-player").find("source")
         if player is not None:
             self.links.append([self.VIDEO, player["src"]])
 
-        # if not tumblr video, find iframes
-        self.get_iframe()
-
     def get_photoset(self):
 
+        ps = []
         photos = self.soup.find_all("photo")
+
         for photo in photos:
-            self.links.append(photo.find("photo-url").contents[0])
+            ps.append(photo.find("photo-url").contents[0])
+
+        self.links.append([self.PHOTOSET, ps])
 
     def get_photo(self):
+
+        if not self.soup.find("photo-url"):
+            return
 
         src = self.soup.find("photo-url").contents[0]
         self.links.append([self.PHOTO, src])
@@ -90,6 +88,11 @@ class LinkFinder:
         # make url
         url = url.split("#")[0]
         url = url.split("?")[0]
+
+        # remove embed
+        if "/embed" in url:
+            url = url[:-6]
+
         url += "/xml"
 
         # get page
