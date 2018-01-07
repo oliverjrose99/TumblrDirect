@@ -111,11 +111,9 @@ if __name__ == "__main__":
     else:
         bot = TumblrDirect("configs/config.json")
 
-        bot.start()
-
     # bad practice but helps in development
     try:
-        print("")
+        bot.start()
     except Exception as e:
         with open("configs/crash.log", "a") as f:
             f.write(str(e))
