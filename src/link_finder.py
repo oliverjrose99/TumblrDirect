@@ -70,7 +70,7 @@ class LinkFinder:
         photos = self.soup.find_all("photo")
 
         for photo in photos:
-            ps.append(photo.find("photo-url").contents[0])
+            ps.append(self.make_raw(photo.find("photo-url").contents[0]))
 
         self.links.append([self.PHOTOSET, ps])
 
@@ -80,7 +80,23 @@ class LinkFinder:
             return
 
         src = self.soup.find("photo-url").contents[0]
-        self.links.append([self.PHOTO, src])
+        self.links.append([self.PHOTO, self.make_raw(src)])
+
+    @staticmethod
+    def make_raw(url):
+
+        # set data domain
+        dot_split = url.split(".")
+        dot_split[0] = "http://data"  # set data
+        del dot_split[1]  # remove media
+
+        # set raw
+        score_split = dot_split[2].split("_")
+        score_split[-1] = "raw"
+
+        # stick together
+        dot_split[2] = "_".join(score_split)
+        return ".".join(dot_split)
 
     @staticmethod
     def get_page(url):
