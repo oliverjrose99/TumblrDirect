@@ -13,6 +13,7 @@ class LinkFinder:
     IFRAME = 3
 
     def __init__(self, url):
+
         # get and setup vars
         self.page = self.get_page(url)
         self.soup = BeautifulSoup(html.unescape(self.page), "html.parser")
@@ -38,6 +39,7 @@ class LinkFinder:
 
     def get_caption(self):
 
+        # get caption
         if self.soup.find("photo-caption"):
             caption = self.soup.find("photo-caption").contents[0]
         elif self.soup.find("video-caption"):
@@ -45,6 +47,12 @@ class LinkFinder:
         else:
             return
 
+        # remove all goo.gl links
+        for a in caption.find_all("a"):
+            if "goo.gl" in a["href"]:
+                a.decompose()
+
+        # make into markdown
         self.caption = html2text.html2text(str(caption))
 
     def get_iframe(self):
