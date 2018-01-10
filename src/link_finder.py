@@ -41,9 +41,9 @@ class LinkFinder:
 
         # get caption
         if self.soup.find("photo-caption"):
-            caption = self.soup.find("photo-caption").contents[0]
+            caption = self.soup.find("photo-caption")
         elif self.soup.find("video-caption"):
-            caption = self.soup.find("video-caption").contents[0]
+            caption = self.soup.find("video-caption")
         else:
             return
 
