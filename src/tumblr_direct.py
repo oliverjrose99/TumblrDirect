@@ -91,10 +91,18 @@ class TumblrDirect:
                 # make post text
                 post_body = post_formatter(post_links, post)
 
+                # make comment
                 try:
-                    post.reply(post_body)
+                    comment = post.reply(post_body)
                 except Exception as e:
                     logging.log(logging.ERROR, "Error posting reply, {}".format(str(e)))
+                    continue
+
+                # try sticking comment
+                try:
+                    comment.mod.distinguish(how='yes', sticky=True)
+                except:
+                    pass
 
     def stop(self):
         # write done arr to file
