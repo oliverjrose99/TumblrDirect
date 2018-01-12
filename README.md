@@ -15,14 +15,6 @@ This bot works by looking at the domain stream produced by Reddit, e.g. reddit.c
 
 If you would like to be added to or removed from the blacklist, please message me on Github or Reddit at [/u/oliverjrose99](https://www.reddit.com/user/oliverjrose99)
 
-## TODO
-Short Term
-* Wrap in proper daemon
-
-Long Term
-* Download embedded iframe and rehost to different location
-* Make PRAW wrapper to make this and future bots easier
-
 ## Support Me
 Server costs aren't a lot, ~£10 per month, but i'm currently unemployed so any support is greatly appreciated. If you want to support me in other ways then you can submit pull requests, find and/or fix bugs, etc. Again, any and all help is greatly appreciated.
 
