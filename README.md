@@ -13,4 +13,7 @@ Because people/bots post links on Reddit to Tumblr posts which, when opened, wil
 ## Blacklist Addition/Removal
 This bot works by looking at the domain stream produced by Reddit, e.g. reddit.com/domain/example.com/. As such a number of subreddits have been blacklisted, either at request or as they are properly moderated and don't require this bot.
 
-If you would like to be added to or removed from the blacklist, please message me on Github or Reddit at [/u/oliverjrose99](https://www.reddit.com/user/oliverjrose99)
+If you would like to be added to or removed from the blacklist, please message me on Github or Reddit at [/u/oliverjrose99](https://www.reddit.com/user/oliverjrose99). You could also just block the bot from the subreddit 
+
+# Auto Pinning
+If the bot is a moderator of the subreddit it will automatically pin the comment to the top of the thread. Send a mod request with post permissions and when accepted it will automatically do this. 
