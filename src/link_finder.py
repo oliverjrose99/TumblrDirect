@@ -49,7 +49,10 @@ class LinkFinder:
 
         # remove all goo.gl links
         for a in caption.find_all("a"):
-            if "goo.gl" in a["href"]:
+            try:
+                if "goo.gl" in a["href"]:
+                    a.decompose()
+            except Exception:  # remove link if cant find url
                 a.decompose()
 
         # make into markdown
