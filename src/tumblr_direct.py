@@ -65,7 +65,7 @@ class TumblrDirect:
                     continue
 
                 # check if sub-reddit blacklisted
-                if post.subreddit in self.blacklist:
+                if str(post.subreddit).lower() in self.blacklist or str(post.author) in self.blacklist:
                     continue
 
                 # make sure its a post
@@ -102,7 +102,7 @@ class TumblrDirect:
                 # try sticking comment
                 try:
                     comment.mod.distinguish(how='yes', sticky=True)
-                except:
+                except Exception:
                     pass
 
     def stop(self):
