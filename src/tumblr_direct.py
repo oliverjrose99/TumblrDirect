@@ -3,6 +3,7 @@
 import json
 import praw
 import sys
+import os
 
 from link_finder import LinkFinder
 from post_formatter import post_formatter
@@ -10,14 +11,16 @@ from post_formatter import post_formatter
 
 class TumblrDirect:
 
+    PATH = os.path.dirname(os.path.realpath(__file__))
+
     def __init__(self, configloc):
         # load config
-        self.config = json.load(open(configloc))
+        self.config = json.load(open(self.PATH + configloc))
 
         # load already done and blacklist
-        self.done = open(self.config["files"]["done"]).read().split("\n")
+        self.done = open(self.PATH + self.config["files"]["done"]).read().split("\n")
         self.done = list(filter(None, self.done))  # clear blank lines
-        self.blacklist = open(self.config["files"]["blacklist"]).read().split("\n")
+        self.blacklist = open(self.PATH + self.config["files"]["blacklist"]).read().split("\n")
 
         # make praw
         try:
@@ -81,7 +84,7 @@ class TumblrDirect:
 
     def stop(self):
         # write done arr to file
-        with open(self.config["files"]["done"], "w") as file:
+        with open(self.PATH + self.config["files"]["done"], "w") as file:
             for id in self.done:
                 file.write(id + "\n")
 
@@ -90,7 +93,7 @@ if __name__ == "__main__":
 
     # bad practice but helps in development
     try:
-        bot = TumblrDirect("configs/config.json")
+        bot = TumblrDirect("/configs/config.json")
         bot.start()
         bot.stop()
     except Exception as e:
