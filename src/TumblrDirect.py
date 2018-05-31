@@ -3,7 +3,7 @@
 import json
 import os
 import sys
-import traceback
+import logging
 
 import praw
 import prawcore
@@ -33,9 +33,13 @@ class TumblrDirect:
 
     def __init__(self):
 
+        # setup log
+        logging.basicConfig(filename="/var/log/td.log", level=logging.INFO)
+
         # exit if pid found, else write pid
         if os.path.exists(self.pid_loc):
-            sys.exit()
+            logging.info("Already running, exiting")
+            exit(0)
         else:
             with open(self.pid_loc, "w") as f:
                 f.write(str(os.getpid()))
@@ -81,18 +85,21 @@ class TumblrDirect:
                 post_text = post_formatter(links, post)
 
                 # comment and pin post
-                print(post.id + " " + str(len(links.links)))
                 comment = post.reply(post_text)
+                logging.info("Made comment on {}".format(post.id))
                 comment.mod.distinguish(how='yes', sticky=True)
+
             except ExceptionGettingAPI as e:
-                print("Could not get page, " + post.url)
+                logging.error("Error getting API page, id: {}, url: {}".format(post.id, links.api_url))
+
             except MediaNotFound as e:
-                print("Could not get media in page " + post.url)
+                logging.error("Error getting media, id: {}, url: {}".format(post.id, post.url))
+
             except prawcore.Forbidden as e:
-                continue
+                pass
+
             except Exception as e:
-                print(e)
-                traceback.print_tb(e.__traceback__)
+                logging.error("EXCEPTION: {}".format(str(e)))
 
     def stop(self):
         # only save 100 ids
