@@ -20,6 +20,8 @@ class LinkFinder:
     VIDEO = 1
     IFRAME = 2
 
+    BAD_URLS = ["bit.ly", "goo.gl", "adf.ly"]
+
     def __init__(self, url, api_key):
         self.url = url
         self.key = api_key
@@ -68,6 +70,17 @@ class LinkFinder:
             self.soup = BeautifulSoup(html.unescape(self.response["caption"]), "html.parser")
         else:
             self.soup = BeautifulSoup("", "html.parser")
+
+        for link in self.soup.find_all("a"):
+
+            # remove url shorteners
+            if any(url in link["href"] for url in self.BAD_URLS):
+                link.decompose()
+                continue
+
+            # set text if none
+            if link.text == "":
+                link.string = link["href"]
 
     def get_photos(self):
         if "photos" in self.response:
