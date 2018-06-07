@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 
 import json
-import os
-import sys
 import logging
+import os
 
 import praw
 import prawcore
@@ -36,13 +35,10 @@ class TumblrDirect:
         # setup log
         logging.basicConfig(filename="/var/log/td.log", level=logging.INFO)
 
-        # exit if pid found, else write pid
+        # exit if pid found
         if os.path.exists(self.pid_loc):
             logging.info("Already running, exiting")
             exit(0)
-        else:
-            with open(self.pid_loc, "w") as f:
-                f.write(str(os.getpid()))
 
         # load config, done and black list
         self.config = json.loads(read_file(self.config_loc))
@@ -57,6 +53,10 @@ class TumblrDirect:
             password=self.config["reddit"]["pass"],
             user_agent=self.config["reddit"]["user_agent"]
         )
+
+        # write pid when all else is good
+        with open(self.pid_loc, "w") as f:
+            f.write(str(os.getpid()))
 
     def run(self):
         for post in self.praw.domain("tumblr.com").new(limit=100):
@@ -115,10 +115,9 @@ class TumblrDirect:
 
 if __name__ == '__main__':
     try:
-
         td = TumblrDirect()
         td.run()
-        td.stop()
     except Exception as e:
-        print("EXCEPTION")
-        print(e)
+        logging.error("EXCEPTION: {}".format(str(e)))
+    finally:
+        td.stop()
