@@ -117,7 +117,10 @@ if __name__ == '__main__':
     try:
         td = TumblrDirect()
         td.run()
+        
+    except SystemExit:
+        pass
+
     except Exception as e:
         logging.error("EXCEPTION: {}".format(str(e)))
-    finally:
         td.stop()
